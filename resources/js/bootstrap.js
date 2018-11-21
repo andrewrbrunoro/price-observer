@@ -12,7 +12,22 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+
+    require('jquery-mask-plugin');
+
+    $(document).ready(function() {
+        $('.money').mask("#.##0,00", {
+            reverse: true
+        });
+
+        $('.percent').mask("###,00", {
+            reverse: true
+        });
+    });
+
+} catch (e) {
+    console.log(e)
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
