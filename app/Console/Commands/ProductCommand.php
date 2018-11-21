@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProductObserverJob;
+use App\Jobs\PichauJob;
 use App\Product;
 use Illuminate\Console\Command;
 
@@ -43,7 +43,7 @@ class ProductCommand extends Command
 
         foreach ($products as $product) {
             dispatch(
-                new ProductObserverJob($product)
+                new $product->job($product)
             );
         }
     }

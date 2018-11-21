@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Symfony\Component\DomCrawler\Crawler;
 
-class ProductObserverJob implements ShouldQueue
+class PichauJob implements ShouldQueue
 {
     use Dispatchable,
         InteractsWithQueue,
