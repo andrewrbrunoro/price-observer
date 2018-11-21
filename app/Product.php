@@ -14,6 +14,16 @@ class Product extends Model
         'percent_off', 'total_off', 'times_read'
     ];
 
+    public function getPriceAttribute($value)
+    {
+        return bco_to_coin($value);
+    }
+
+    public function getSaleAttribute($value)
+    {
+        return bco_to_coin($value);
+    }
+
     public function setJobAttribute(
         $value
     )

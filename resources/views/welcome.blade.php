@@ -181,10 +181,20 @@
                                     <div class="card mb-4 shadow-sm">
                                         <img class="card-img-top"
                                              data-src="{!! $product->image !!}"
-                                             style="width: 100%; display: block;"
+                                             style="width: 100%; display: block; padding: 20px"
                                              src="{!! $product->image !!}" data-holder-rendered="true" />
 
                                         <div class="card-body">
+                                            <div class="badge badge-danger" style="font-size: 16px;">
+                                                R$ {!! $product->price !!}
+                                            </div>
+
+                                            <div class="badge badge-success" style="font-size: 16px;">
+                                                R$ {!! $product->sale !!}
+                                            </div>
+
+                                            <hr>
+
                                             <p class="card-text">
                                                 {!! !$product->name ? "<a href='{$product->url}' target='_blank'>{$product->url}</a>" : $product->name !!}
                                             </p>
@@ -193,9 +203,9 @@
                                                     <a href="" class="btn btn-sm btn-outline-info">
                                                         Visualizar
                                                     </a>
-                                                    <button type="button" class="btn btn-sm {!! $product->status === 0 ? 'btn-outline-success' : 'btn-outline-danger' !!}">
+                                                    <a href="" class="btn btn-sm {!! $product->status === 0 ? 'btn-outline-success' : 'btn-outline-secondary' !!}">
                                                         {!! $product->status === 0 ? 'Ativar' : 'Desativar' !!}
-                                                    </button>
+                                                    </a>
                                                     <button type="button" class="btn btn-sm btn-outline-danger">
                                                         Remover
                                                     </button>
