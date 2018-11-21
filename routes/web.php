@@ -16,3 +16,28 @@ Route::get('/', 'HomeController@index')
 
 Route::post('/', 'HomeController@store')
     ->name('product.store');
+
+
+Route::get('teste', function() {
+
+    $url = "https://www.pichau.com.br/computador-pichau-gamer-i5-8400-geforce-gtx-1070-ti-8gb-gigabyte-windforce-8gb-ddr4-hd-1tb-600w-elysium";
+
+    $ch  = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+    $html = curl_exec($ch);
+    curl_close($ch);
+
+    $crawler = new \Symfony\Component\DomCrawler\Crawler($html);
+
+    $imagesCrawler = $crawler->filterXPath('//meta[@property="og:image"]');
+
+    dd($imagesCrawler->extract('content'));
+
+    $images  = $crawler->filterXPath('//img[@class="fotorama__img"]')->each(function(\Symfony\Component\DomCrawler\Crawler $node, $i) {
+        dump($node->extract('src'));
+    });
+
+    dd("here");
+
+});

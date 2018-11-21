@@ -50,6 +50,11 @@ class PichauJob implements ShouldQueue
         $crawlerFindSale  = $crawler->filterXPath('//span[@class="price-boleto"]');
         $sale             = brl_to_bco($crawlerFindSale->text());
 
+        $crawlerFindImage = $crawler->filterXPath('//meta[@property="og:image"]');
+        $imageContent     = $crawlerFindImage->extract('content');
+        $image            = is_array($imageContent) ? $imageContent[0] : null;
+
+
         PriceHistory::create([
             'product_id' => $product->id,
             'price'      => $price,
@@ -59,6 +64,7 @@ class PichauJob implements ShouldQueue
         $product->name      = $productName;
         $product->price     = $price;
         $product->sale      = $sale;
+        $product->image     = $image;
 
         if ($product->times_read === 0) {
             $product->first_price = $price;

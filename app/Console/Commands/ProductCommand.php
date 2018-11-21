@@ -39,7 +39,7 @@ class ProductCommand extends Command
      */
     public function handle()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
 
         foreach ($products as $product) {
             dispatch(

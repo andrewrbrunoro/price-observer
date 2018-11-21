@@ -29,7 +29,13 @@ class CreateProductsTable extends Migration
             $table->decimal('percent_off', 10, 2)->default(0.00);
             $table->decimal('total_off', 10, 2)->default(0.00);
 
+            $table->text('image')
+                ->nullable();
+
             $table->integer('times_read')->default(0);
+
+            $table->boolean('status')
+                ->default(1);
 
             $table->softDeletes();
             $table->timestamps();
