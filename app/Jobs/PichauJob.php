@@ -56,11 +56,17 @@ class PichauJob implements ShouldQueue
         $image            = is_array($imageContent) ? $imageContent[0] : null;
 
 
-        PriceHistory::create([
-            'product_id' => $product->id,
-            'price'      => $price,
-            'sale'       => $sale
-        ]);
+        $lastHistoryPrice = PriceHistory::where('product_id', '=', $product->id)
+            ->orderByDesc('created_at')
+            ->first();
+
+        if ($lastHistoryPrice->price != $price) {
+            PriceHistory::create([
+                'product_id' => $product->id,
+                'price' => $price,
+                'sale' => $sale
+            ]);
+        }
 
         $product->name      = $productName;
         $product->price     = $price;
