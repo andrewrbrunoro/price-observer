@@ -44,7 +44,7 @@ class ProductAnalyticJob implements ShouldQueue
             if ($product->first_price > 0) {
                 $diffPrice = $firstPrice - (($percentOff / 100) * $firstPrice);
 
-                if ($diffPrice <= coin_to_bco($product->price)) {
+                if ($diffPrice > coin_to_bco($product->price)) {
 
                     if ($watcher->email_at != "")
                         $hourDiff = $watcher->email_at->diffInHours(Carbon::now());
