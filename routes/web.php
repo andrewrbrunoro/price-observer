@@ -20,6 +20,7 @@ Route::post('produto/criar', 'ProductController@store')
 Route::get('produto/{id}/visualizar', 'ProductController@show')
     ->name('product.show');
 
+Route::get('ajax/products', 'ProductController@ajaxProducts');
 
 Route::get('send-email', function() {
     \Mail::to('andrewrbrunoro@gmail.com')

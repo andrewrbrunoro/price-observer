@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
+    public function ajaxProducts()
+    {
+        return Product::all();
+    }
+
     public function show(
         int $id
     )
