@@ -62,4 +62,10 @@ class Product extends Model
         $this->attributes['total_off'] = $coin;
     }
 
+    public function PriceHistories()
+    {
+        return $this->hasMany(PriceHistory::class, 'product_id')
+            ->orderByDesc('created_at');
+    }
+
 }

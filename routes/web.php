@@ -12,11 +12,19 @@
 */
 
 Route::get('/', 'HomeController@index')
-    ->name('product.index');
+    ->name('home');
 
-Route::post('/', 'HomeController@store')
+Route::post('produto/criar', 'ProductController@store')
     ->name('product.store');
 
+Route::get('produto/{id}/visualizar', 'ProductController@show')
+    ->name('product.show');
+
+
+Route::get('send-email', function() {
+    \Mail::to('andrewrbrunoro@gmail.com')
+        ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
+});
 
 Route::get('teste', function() {
 

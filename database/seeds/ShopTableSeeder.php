@@ -8,6 +8,14 @@ class ShopTableSeeder extends Seeder
         [
             'name' => 'Pichau',
             'job'  => 'App\Jobs\PichauJob'
+        ],
+        [
+            'name' => 'Magazine Luiza',
+            'job'  => ''
+        ],
+        [
+            'name' => 'Americanas',
+            'job'  => ''
         ]
     ];
 

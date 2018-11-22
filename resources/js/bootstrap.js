@@ -15,6 +15,8 @@ try {
 
     require('jquery-mask-plugin');
 
+    require('chart.js');
+
     $(document).ready(function() {
         $('.money').mask("#.##0,00", {
             reverse: true
