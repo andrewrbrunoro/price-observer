@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\ProductAlertMail;
 use App\PriceHistory;
 use App\Product;
 use Illuminate\Bus\Queueable;
@@ -87,9 +88,10 @@ class PichauJob implements ShouldQueue
 
         $diffPrice  = $firstPrice - (($percentOff / 100) * $firstPrice);
         if ($diffPrice >= $product->price) {
-            info('produto barato');
+            \Mail::to('andrewrbrunoro@gmail.com')
+                ->send(new ProductAlertMail($this->product));
         } else {
-            info('produto caro');
+            // produto caro
         }
         #-> Metrica
     }
