@@ -10,8 +10,8 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'job', 'url', 'name', 'price', 'sale', 'first_price', 'first_sale', 'price', 'sale',
-        'percent_off', 'total_off', 'times_read'
+        'job', 'url', 'name', 'price', 'sale', 'first_price',
+        'first_sale', 'price', 'sale', 'times_read'
     ];
 
     public function getPriceAttribute($value)
@@ -34,32 +34,6 @@ class Product extends Model
             $job = $value;
 
         $this->attributes['job'] = $job;
-    }
-
-    public function setPercentOffAttribute(
-        $value
-    )
-    {
-        if (is_null($value))
-            $coin = "0.00";
-        else {
-            $coin = coin_to_bco($value);
-        }
-
-        $this->attributes['percent_off'] = $coin;
-    }
-
-    public function setTotalOffAttribute(
-        $value
-    )
-    {
-        if (is_null($value))
-            $coin = "0.00";
-        else {
-            $coin = coin_to_bco($value);
-        }
-
-        $this->attributes['total_off'] = $coin;
     }
 
     public function PriceHistories()

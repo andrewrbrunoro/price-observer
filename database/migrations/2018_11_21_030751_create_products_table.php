@@ -17,17 +17,22 @@ class CreateProductsTable extends Migration
             $table->increments('id');
 
             $table->string('job');
-
             $table->string('url');
 
-            $table->string('name')->nullable();
+            $table->string('name')
+                ->nullable();
 
-            $table->decimal('first_price', 10, 2)->default(0.00);
-            $table->decimal('first_sale', 10, 2)->default(0.00);
-            $table->decimal('price', 10, 2)->default(0.00);
-            $table->decimal('sale', 10, 2)->default(0.00);
-            $table->decimal('percent_off', 10, 2)->default(0.00);
-            $table->decimal('total_off', 10, 2)->default(0.00);
+            $table->decimal('first_price', 10, 2)
+                ->default(0.00);
+            $table->decimal('first_sale', 10, 2)
+                ->default(0.00);
+            $table->decimal('price', 10, 2)
+                ->default(0.00);
+            $table->decimal('sale', 10, 2)
+                ->default(0.00);
+
+//            $table->decimal('percent_off', 10, 2)->default(0.00);
+//            $table->decimal('total_off', 10, 2)->default(0.00);
 
             $table->text('image')
                 ->nullable();

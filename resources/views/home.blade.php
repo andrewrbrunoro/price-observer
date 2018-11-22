@@ -83,16 +83,6 @@
                             </div>
 
                             <div class="col-lg-3">
-                                <div class="form-group{!! $errors->has('total_off') ? ' has-error' : '' !!}">
-                                    <label for="total_off">
-                                        Desconto em valor
-                                    </label>
-                                    <input type="text" name="total_off" class="form-control money" placeholder="0,00" value="{!! old('total_off') !!}" />
-                                    {!! $errors->first('total_off', '<span class="text-info float-left">:message</span>') !!}
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3">
                                 <div class="form-group{!! $errors->has('percent_off') ? ' has-error' : '' !!}">
                                     <label for="percent_off">
                                         Desconto em porcentagem (%)
@@ -102,7 +92,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group{!! $errors->has('job') ? ' has-error' : '' !!}">
                                     <label for="job">
                                         Loja do produto

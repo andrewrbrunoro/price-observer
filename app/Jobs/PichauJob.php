@@ -81,7 +81,7 @@ class PichauJob implements ShouldQueue
         $product->times_read = $product->times_read + 1;
         $product->save();
 
-        $this->analytics();
+//        $this->analytics();
     }
 
     private function analytics()

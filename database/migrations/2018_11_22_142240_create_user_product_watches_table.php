@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCardsTable extends Migration
+class CreateUserProductWatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,16 @@ class CreateUserCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_cards', function (Blueprint $table) {
+        Schema::create('user_product_watches', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('user_id');
+            $table->integer('product_id');
+
+            $table->decimal('discount', 10, 2)
+                ->default(0.00);
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +34,6 @@ class CreateUserCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_cards');
+        Schema::dropIfExists('user_product_watches');
     }
 }
