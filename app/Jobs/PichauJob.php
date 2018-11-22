@@ -60,7 +60,7 @@ class PichauJob implements ShouldQueue
             ->orderByDesc('created_at')
             ->first();
 
-        if ($lastHistoryPrice->price != $price) {
+        if (!$lastHistoryPrice || $lastHistoryPrice->price != $price) {
             PriceHistory::create([
                 'product_id' => $product->id,
                 'price' => $price,
