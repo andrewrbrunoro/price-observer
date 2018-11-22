@@ -11,7 +11,13 @@ class UserProductWatch extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'product_id', 'discount'
+        'user_id', 'product_id', 'discount', 'status', 'email_at'
+    ];
+
+    protected $dates = [
+        'email_at',
+        'created_at',
+        'updated_at'
     ];
 
     public function setDiscountAttribute(

@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\ProductCommand;
+use App\Console\Commands\UserProductWatchCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ProductCommand::class
+        ProductCommand::class,
+        UserProductWatchCommand::class
     ];
 
     /**
@@ -29,6 +31,9 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('products:read')
+            ->everyMinute();
+
+        $schedule->command('user-watch-products')
             ->everyMinute();
     }
 

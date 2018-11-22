@@ -33,7 +33,7 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required|url|unique:products,url',
+            'url' => 'required|url',
             'job' => 'required|exists:shops,id'
         ];
     }

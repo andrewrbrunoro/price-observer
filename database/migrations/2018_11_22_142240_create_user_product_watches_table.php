@@ -22,6 +22,9 @@ class CreateUserProductWatchesTable extends Migration
             $table->decimal('discount', 10, 2)
                 ->default(0.00);
 
+            $table->boolean('status')
+                ->default(1);
+
             $table->softDeletes();
             $table->timestamps();
         });

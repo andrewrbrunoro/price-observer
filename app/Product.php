@@ -42,4 +42,9 @@ class Product extends Model
             ->orderByDesc('created_at');
     }
 
+    public function UserProductWatches()
+    {
+        return $this->hasMany(UserProductWatch::class, 'product_id');
+    }
+
 }

@@ -80,25 +80,5 @@ class PichauJob implements ShouldQueue
 
         $product->times_read = $product->times_read + 1;
         $product->save();
-
-//        $this->analytics();
-    }
-
-    private function analytics()
-    {
-        $product = $this->product;
-
-        #-> Metrica
-        $percentOff = $product->percent_off;
-        $firstPrice = $product->first_price;
-
-        $diffPrice  = $firstPrice - (($percentOff / 100) * $firstPrice);
-        if ($diffPrice <= $product->price) {
-            \Mail::to('andrewrbrunoro@gmail.com')
-                ->send(new ProductAlertMail($this->product));
-        } else {
-            // produto caro
-        }
-        #-> Metrica
     }
 }

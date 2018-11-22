@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductStoreRequest;
 use App\PriceHistory;
 use App\Product;
+use App\UserProductWatch;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class ProductController extends Controller
 
     public function ajaxProducts()
     {
-        return Product::all();
+        $userWatches = UserProductWatch::where('user_id', auth()->user()->id)
+            ->pluck('product_id', 'product_id');
+        return Product::whereIn('id', $userWatches)->get();
     }
 
     public function show(
@@ -74,7 +77,26 @@ class ProductController extends Controller
         \DB::beginTransaction();
         try {
 
-            $product->create($productStoreRequest->all());
+            $productData = Product::where('url', '=', $productStoreRequest->get('url'))
+                ->first();
+
+            if (!$productData)
+                $productData = $product->create($productStoreRequest->all());
+
+            $userAlreadyWatch = UserProductWatch::where([
+                'user_id'    => auth()->user()->id,
+                'product_id' => $productData->id,
+                'discount'   => coin_to_bco($productStoreRequest->get('percent_off'))
+            ])->first();
+
+            if (!$userAlreadyWatch) {
+                $productData->UserProductWatches()->saveMany([
+                    new UserProductWatch([
+                        'user_id' => auth()->user()->id,
+                        'discount' => coin_to_bco($productStoreRequest->get('percent_off'))
+                    ])
+                ]);
+            }
 
             \DB::commit();
             return redirect()->route("home")
@@ -83,6 +105,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
 
             \DB::rollback();
+
             return redirect()->back()
                 ->with("error", $e->getMessage());
 
