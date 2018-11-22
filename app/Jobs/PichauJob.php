@@ -87,7 +87,7 @@ class PichauJob implements ShouldQueue
         $firstPrice = $product->first_price;
 
         $diffPrice  = $firstPrice - (($percentOff / 100) * $firstPrice);
-        if ($diffPrice >= $product->price) {
+        if ($diffPrice <= $product->price) {
             \Mail::to('andrewrbrunoro@gmail.com')
                 ->send(new ProductAlertMail($this->product));
         } else {
