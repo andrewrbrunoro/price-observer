@@ -52,6 +52,7 @@
 
     export default {
         name: "show-case",
+        props: ['user'],
         data () {
             return {
                 products: []
@@ -59,7 +60,7 @@
         },
         methods: {
             loadProducts () {
-                axios.get('ajax/products')
+                axios.get('ajax/products' + ( this.user ? '?usuario=' + this.user : '' ))
                     .then(r => {
                         this.products = r.data;
                     })

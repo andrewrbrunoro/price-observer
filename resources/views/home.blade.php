@@ -25,6 +25,12 @@
                                 </a>
                             </li>
                         </ul>
+                        <form action="{!! route('logout') !!}" method="post">
+                            {!! csrf_field() !!}
+                            <button type="submit" class="btn btn-success btn-sm btn-danger">
+                                Sair
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -123,7 +129,7 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-                <show-case></show-case>
+                <show-case user="{!! request('usuario') !!}"></show-case>
             </div>
         </div>
 

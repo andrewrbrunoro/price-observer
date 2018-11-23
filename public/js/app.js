@@ -79285,7 +79285,7 @@ exports = module.exports = __webpack_require__(227)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -79804,6 +79804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "show-case",
+    props: ['user'],
     data: function data() {
         return {
             products: []
@@ -79814,7 +79815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadProducts: function loadProducts() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('ajax/products').then(function (r) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('ajax/products' + (this.user ? '?usuario=' + this.user : '')).then(function (r) {
                 _this.products = r.data;
             });
         }

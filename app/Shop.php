@@ -22,4 +22,13 @@ class Shop extends Model
         return $jobData->job;
     }
 
+    public static function getShop(
+        $value
+    )
+    {
+        $job = Shop::find($value);
+
+        return $job;
+    }
+
 }
