@@ -11,7 +11,7 @@ class ShopTableSeeder extends Seeder
         ],
         [
             'name' => 'Magazine Luiza',
-            'job'  => ''
+            'job'  => 'App\Jobs\MagazineLuizaJob'
         ],
         [
             'name' => 'Americanas',

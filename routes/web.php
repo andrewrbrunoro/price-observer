@@ -47,29 +47,9 @@ Route::get('send-email', function () {
 
 Route::get('teste', function () {
 
-    $hourDiff = \Carbon\Carbon::now()->subHour(1)->diffInHours(\Carbon\Carbon::now());
 
-    dd($hourDiff);
+    $url = "https://www.magazineluiza.com.br/cooktop-5-bocas-philco-cook-chef-5-tc-a-gas-natural-e-glp-tripla-chama/p/216590800/ed/cook/";
 
-    $url = "https://www.pichau.com.br/computador-pichau-gamer-i5-8400-geforce-gtx-1070-ti-8gb-gigabyte-windforce-8gb-ddr4-hd-1tb-600w-elysium";
-
-    $tags = get_meta_tags("https://www.pichau.com.br/computador-pichau-gamer-i5-8400-geforce-gtx-1070-ti-8gb-gigabyte-windforce-8gb-ddr4-hd-1tb-600w-elysium");
-
-    dd($tags);
-
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_FILETIME, true);
-    curl_setopt($curl, CURLOPT_NOBODY, true);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HEADER, true);
-    $header = curl_exec($curl);
-    $info   = curl_getinfo($curl);
-    curl_close($curl);
-
-    dd($header, $info);
-
-    exit;
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -79,14 +59,16 @@ Route::get('teste', function () {
 
     $crawler = new \Symfony\Component\DomCrawler\Crawler($html);
 
-    $imagesCrawler = $crawler->filterXPath('//meta[@property="og:image"]');
+    $product = $crawler->filterXPath('//div[@class="header-product js-header-product"]')->extract('data-product');
+    $product = json_decode($product[0]);
 
-    dd($imagesCrawler->extract('content'));
+    dd($product);
 
-    $images = $crawler->filterXPath('//img[@class="fotorama__img"]')->each(function (\Symfony\Component\DomCrawler\Crawler $node, $i) {
-        dump($node->extract('src'));
-    });
+    $productName      = $product->fullTitle;
+    $price            = coin_to_bco($product->listPrice);
+    $sale             = coin_to_bco($product->priceTemplate);
+    $image            = $product->imageUrl;
 
-    dd("here");
+    exit;
 
 });
