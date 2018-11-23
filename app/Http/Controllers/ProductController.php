@@ -5,15 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductStoreRequest;
 use App\PriceHistory;
 use App\Product;
+use App\Shop;
+use App\User;
 use App\UserProductWatch;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
 
-    public function ajaxProducts()
+    public function ajaxProducts(
+        Request $request
+    )
     {
-        $userWatches = UserProductWatch::where('user_id', auth()->user()->id)
+        if ($request->filled('usuario')) {
+            $user = User::find($request->get('usuario'));
+            if (!$user)
+                return redirect()->route( 'home')->with('error', 'Usuário não encontrado.');
+
+            $user_id = $user->id;
+        } else {
+            $user_id = auth()->user()->id;
+        }
+
+        $userWatches = UserProductWatch::where('user_id', $user_id)
             ->pluck('product_id', 'product_id');
         return Product::whereIn('id', $userWatches)->get();
     }
@@ -79,8 +94,21 @@ class ProductController extends Controller
             $productData = Product::where('url', '=', $productStoreRequest->get('url'))
                 ->first();
 
-            if (!$productData)
+            $jobData     = Shop::getShop($productStoreRequest->get('job'));
+            if (!$jobData)
+                return redirect()->route('home')->with('error', 'Loja não encontrada');
+
+            $parseUrl = parse_url($productStoreRequest->get('url'));
+            $hostUrl  = $parseUrl['host'];
+            $wHostUrl = str_replace('www.', '', $hostUrl);
+
+            if ($hostUrl != $jobData->domain && $wHostUrl != $jobData->domain)
+                return redirect()->route('home')->with('error', 'O link digitado não coincide com a loja selecionada.')
+                    ->withInput($productStoreRequest->all());
+
+            if (!$productData) {
                 $productData = $product->create($productStoreRequest->all());
+            }
 
             $userAlreadyWatch = UserProductWatch::where([
                 'user_id'    => auth()->user()->id,

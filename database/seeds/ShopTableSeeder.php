@@ -7,15 +7,13 @@ class ShopTableSeeder extends Seeder
     private $shops = [
         [
             'name' => 'Pichau',
-            'job'  => 'App\Jobs\PichauJob'
+            'job'  => 'App\Jobs\PichauJob',
+            'domain' => 'pichau.com.br'
         ],
         [
             'name' => 'Magazine Luiza',
-            'job'  => 'App\Jobs\MagazineLuizaJob'
-        ],
-        [
-            'name' => 'Americanas',
-            'job'  => ''
+            'job'  => 'App\Jobs\MagazineLuizaJob',
+            'domain' => 'magazineluiza.com.br'
         ]
     ];
 
