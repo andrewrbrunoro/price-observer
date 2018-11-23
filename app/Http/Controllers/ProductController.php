@@ -99,7 +99,8 @@ class ProductController extends Controller
 
             \DB::commit();
 
-            \Artisan::call('products:read');
+            if (!strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
+                \Artisan::call('products:read');
 
             return redirect()->route("home")
                 ->with("success", "Produto cadastrado com sucesso, você pode visualizar as alterações dele na vitrine.");

@@ -48,7 +48,7 @@ Route::get('send-email', function () {
 Route::get('teste', function () {
 
 
-    $url = "https://www.magazineluiza.com.br/cooktop-5-bocas-philco-cook-chef-5-tc-a-gas-natural-e-glp-tripla-chama/p/216590800/ed/cook/";
+    $url = "https://www.americanas.com.br/produto/132380287/smartphone-samsung-galaxy-j5-pro-dual-chip-android-7-0-tela-5-2-octa-core-1-6-ghz-32gb-4g-camera-13mp-preto?DCSext.recom=RR_home_page.rr1-PersonalizedClickCP&nm_origem=rec_home_page.rr1-PersonalizedClickCP&nm_ranking_rec=1&pfm_carac=A%20gente%20acha%20que%20voc%C3%AA%20vai%20curtir%20esses&pfm_index=0&pfm_page=home&pfm_pos=home_page.rr1&pfm_type=vit_recommendation";
 
 
     $ch = curl_init($url);
@@ -59,15 +59,20 @@ Route::get('teste', function () {
 
     $crawler = new \Symfony\Component\DomCrawler\Crawler($html);
 
-    $product = $crawler->filterXPath('//div[@class="header-product js-header-product"]')->extract('data-product');
-    $product = json_decode($product[0]);
+    $crawlerFindName  = $crawler->filterXPath('//title');
+    $productName      = $crawlerFindName->text();
 
-    dd($product);
+    $crawlerFindPrice = $crawler->filterXPath('//p[@class="sales-price"]');
+    $price            = brl_to_bco($crawlerFindPrice->text());
 
-    $productName      = $product->fullTitle;
-    $price            = coin_to_bco($product->listPrice);
-    $sale             = coin_to_bco($product->priceTemplate);
-    $image            = $product->imageUrl;
+    dd($price);
+
+    $crawlerFindSale  = $crawler->filterXPath('//span[@class="price-boleto"]');
+    $sale             = brl_to_bco($crawlerFindSale->text());
+
+    $crawlerFindImage = $crawler->filterXPath('//meta[@property="og:image"]');
+    $imageContent     = $crawlerFindImage->extract('content');
+    $image            = is_array($imageContent) ? $imageContent[0] : null;
 
     exit;
 
