@@ -48,8 +48,8 @@ Route::get('send-email', function () {
 Route::get('teste', function () {
 
     $values = [
-        "R$100.000,00",
-        "R$10.942,12",
+        "de R$100.000,00 até",
+        "preço R$10.942,12",
         "R$1.912,12",
         "R$500,00",
         "R$25,00",

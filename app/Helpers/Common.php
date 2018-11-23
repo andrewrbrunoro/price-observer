@@ -9,7 +9,9 @@ if (!function_exists('brl_to_bco')) {
         if (!isset($value[1]))
             return "0.00";
 
-        $valueBco = str_replace("R$", "", $value[1]);
+        $value = preg_replace("/[^0-9.,]/","", $value[1]);
+
+        $valueBco = str_replace("R$", "", $value);
 
         return coin_to_bco($valueBco);
     }
