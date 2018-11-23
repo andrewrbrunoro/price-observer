@@ -31,10 +31,10 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->command('products:read')
-            ->everyMinute();
+            ->everyTenMinutes();
 
         $schedule->command('user-watch-products')
-            ->everyMinute();
+            ->everyTenMinutes();
     }
 
     /**
