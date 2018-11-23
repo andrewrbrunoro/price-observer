@@ -7,7 +7,6 @@ use App\PriceHistory;
 use App\Product;
 use App\UserProductWatch;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -99,12 +98,17 @@ class ProductController extends Controller
             }
 
             \DB::commit();
+
+            \Artisan::call('products:read');
+
             return redirect()->route("home")
                 ->with("success", "Produto cadastrado com sucesso, você pode visualizar as alterações dele na vitrine.");
 
         } catch (\Exception $e) {
 
             \DB::rollback();
+
+            dd($e);
 
             return redirect()->back()
                 ->with("error", $e->getMessage());
