@@ -2,15 +2,14 @@
 if (!function_exists('brl_to_bco')) {
     function brl_to_bco($value)
     {
+
         $value = str_replace(' ', '', $value);
+        $value = explode('R$', $value);
 
-        preg_match('/R\$\d+(?:\.\d+?)?(?:\,\d+)?/', $value, $matches);
-        $firstFound = array_first($matches);
-
-        if (!$firstFound)
+        if (!isset($value[1]))
             return "0.00";
 
-        $valueBco = str_replace("R$", "", $firstFound);
+        $valueBco = str_replace("R$", "", $value[1]);
 
         return coin_to_bco($valueBco);
     }

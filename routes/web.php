@@ -47,6 +47,21 @@ Route::get('send-email', function () {
 
 Route::get('teste', function () {
 
+    $values = [
+        "R$100.000,00",
+        "R$10.942,12",
+        "R$1.912,12",
+        "R$500,00",
+        "R$25,00",
+        "R$5,00"
+    ];
+
+    foreach ($values as $value) {
+        dump(brl_to_bco($value));
+    }
+
+    exit;
+
 
     $url = "https://www.kabum.com.br/cgi-local/site/produtos/descricao_ofertas.cgi?codigo=79936";
 
