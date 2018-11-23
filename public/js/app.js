@@ -79261,7 +79261,7 @@ var content = __webpack_require__(226);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(228)("bf984ce8", content, false, {});
+var update = __webpack_require__(228)("9cf4db8e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -79888,7 +79888,7 @@ var render = function() {
                         "\n                    "
                     )
                   ])
-                : _c("span", [
+                : _c("a", { attrs: { href: product.url, target: "_blank" } }, [
                     _vm._v(
                       "\n                        " +
                         _vm._s(product.name) +

@@ -21,9 +21,9 @@
                         <a v-if="!product.name" :href="product.url" target='_blank'>
                             {{product.url}}
                         </a>
-                        <span v-else>
+                        <a :href="product.url" target='_blank' v-else>
                             {{product.name}}
-                        </span>
+                        </a>
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">

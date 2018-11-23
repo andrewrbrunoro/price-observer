@@ -14,6 +14,11 @@ class ShopTableSeeder extends Seeder
             'name' => 'Magazine Luiza',
             'job'  => 'App\Jobs\MagazineLuizaJob',
             'domain' => 'magazineluiza.com.br'
+        ],
+        [
+            'name' => 'Kabum',
+            'job' => 'App\Jobs\KabumJob.php',
+            'domain' => 'kabum.com.br'
         ]
     ];
 
