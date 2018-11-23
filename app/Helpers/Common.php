@@ -2,8 +2,9 @@
 if (!function_exists('brl_to_bco')) {
     function brl_to_bco($value)
     {
-        preg_match('/R\$\d+(?:\.\d+)(?:\,\d+)?/', $value, $matches);
+        $value = str_replace(' ', '', $value);
 
+        preg_match('/R\$\d+(?:\.\d+?)?(?:\,\d+)?/', $value, $matches);
         $firstFound = array_first($matches);
 
         if (!$firstFound)
