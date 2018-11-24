@@ -17,7 +17,7 @@ class ShopTableSeeder extends Seeder
         ],
         [
             'name' => 'Kabum',
-            'job' => 'App\Jobs\KabumJob.php',
+            'job' => 'App\Jobs\KabumJob',
             'domain' => 'kabum.com.br'
         ]
     ];

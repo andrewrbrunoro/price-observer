@@ -45,6 +45,10 @@ Route::get('send-email', function () {
         ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
 });
 
+Route::get('run-artisan', function() {
+    \Illuminate\Support\Facades\Artisan::call('products:read');
+});
+
 Route::get('teste', function () {
 
     $values = [
