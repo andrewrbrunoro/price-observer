@@ -53,8 +53,8 @@ class ProductAnalyticJob implements ShouldQueue
 
                     if ($hourDiff > 0) {
 
-                        \Mail::to($user->email)
-                            ->send(new ProductAlertMail($product));
+//                        \Mail::to($user->email)
+//                            ->send(new ProductAlertMail($product));
 
                         $watcher->update(['email_at' => Carbon::now()]);
                     }
