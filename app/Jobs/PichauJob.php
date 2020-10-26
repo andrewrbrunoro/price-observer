@@ -2,15 +2,20 @@
 
 namespace App\Jobs;
 
+use App\Helpers\Curl;
 use App\Mail\ProductAlertMail;
 use App\PriceHistory;
 use App\Product;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\SessionCookieJar;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Symfony\Component\DomCrawler\Crawler;
+use const http\Client\Curl\Versions\CURL;
 
 class PichauJob implements ShouldQueue
 {
@@ -32,17 +37,14 @@ class PichauJob implements ShouldQueue
     {
         $product = $this->product;
 
-        $url = $product->url;
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        $html = curl_exec($ch);
-        curl_close($ch);
+        $html = Curl::request($product->url);
+        if (!$html) {
+            throw new Exception(sprintf('Falha ao requisitar %s', $product->url));
+        }
 
         $crawler = new Crawler($html);
 
-        $crawlerFindName  = $crawler->filterXPath('//div[@class="product title"]')->children();
+        $crawlerFindName  = $crawler->filterXPath('//div[@class="product title"]');
         $productName      = $crawlerFindName->text();
 
         $crawlerFindPrice = $crawler->filterXPath('//span[@class="price"]');
@@ -52,8 +54,7 @@ class PichauJob implements ShouldQueue
         $sale             = brl_to_bco($crawlerFindSale->text());
 
         $crawlerFindImage = $crawler->filterXPath('//meta[@property="og:image"]');
-        $imageContent     = $crawlerFindImage->extract('content');
-        $image            = is_array($imageContent) ? $imageContent[0] : null;
+        $image            = $crawlerFindImage->attr('content');
 
 
         $lastHistoryPrice = PriceHistory::where('product_id', '=', $product->id)

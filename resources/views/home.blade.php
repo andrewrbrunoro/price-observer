@@ -7,11 +7,11 @@
                 <div class="row">
                     <div class="col-sm-8 col-md-7 py-4">
                         <h4 class="text-white">Sobre</h4>
-                        <p class="text-muted">
+                        <p class="text-white">
                             O projeto tem como objetivo ficar analisando a mudança dos valores em lojas específicas. <br />
                             <span class="text-info">
-                                    Andrew Rodrigues Brunoro < andrewrbrunoro@gmail.com >
-                                </span>
+                                Andrew Rodrigues Brunoro < andrewrbrunoro@gmail.com >
+                            </span>
                         </p>
                     </div>
                     <div class="col-sm-4 offset-md-1 py-4">
@@ -20,8 +20,8 @@
                         </h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a href="#" class="text-white">
-                                    Facebook
+                                <a href="https://www.linkedin.com/in/andrewrbrunoro/" target="_blank" class="text-white">
+                                    Linkedin
                                 </a>
                             </li>
                         </ul>
@@ -57,7 +57,7 @@
 
                 <p class="lead text-jumbotron-muted">
                     Na primeira leitura do produto será definido seu valor base. <br>
-                    Os valores a serem diferenciados serão baseados no valor base.
+                    Você só será notificado caso o produto receba o desconto que você definir na porcentagem.
                 </p>
 
                 <hr>

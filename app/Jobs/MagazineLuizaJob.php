@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\Curl;
 use App\PriceHistory;
 use App\Product;
 use Illuminate\Bus\Queueable;
@@ -31,18 +32,14 @@ class MagazineLuizaJob implements ShouldQueue
     {
         $product = $this->product;
 
-        $url = $product->url;
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-        $html = curl_exec($ch);
-        curl_close($ch);
+        $html = Curl::request($product->url);
 
         $crawler = new Crawler($html);
 
-        $productCrawler = $crawler->filterXPath('//div[@class="header-product js-header-product"]')->extract('data-product');
-        $productCrawler = json_decode($productCrawler[0]);
+        $productCrawler = $crawler->filterXPath('//div[@class="header-product js-header-product"]')
+            ->attr('data-product');
+
+        $productCrawler = json_decode($productCrawler);
 
         $productName      = $productCrawler->fullTitle;
         $price            = coin_to_bco($productCrawler->listPrice);
