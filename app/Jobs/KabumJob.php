@@ -40,9 +40,18 @@ class KabumJob implements ShouldQueue
         $productName      = $crawlerFindName->text();
 
         $crawlerFindPrice = $crawler->filterXPath('//div[@class="preco_antigo-cm"]');
+        if (!$crawlerFindPrice) {
+            $crawlerFindPrice = $crawler->filterXPath('//div[@class="preco_normal"]');
+        }
+
         $price            = brl_to_bco($crawlerFindPrice->text());
 
-        $crawlerFindSale  = $crawler->filterXPath('//div[@class="preco_desconto-cm"]')->children();
+        $crawlerFindSale  = $crawler->filterXPath('//div[@class="preco_desconto-cm"]');
+        if (!$crawlerFindSale) {
+            $crawlerFindSale  = $crawler->filterXPath('//div[@class="preco_desconto"]');
+        }
+        $crawlerFindSale  = $crawlerFindSale->children();
+
         $sale             = brl_to_bco($crawlerFindSale->text());
 
         $crawlerFindImage = $crawler->filterXPath('//meta[@property="og:image"]');

@@ -43,7 +43,8 @@ Route::get('ajax/products', 'ProductController@ajaxProducts');
 Route::get('send-email', function () {
     try {
         \Mail::to('andrewrbrunoro@gmail.com')
-        ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
+            ->from('andrewrbrunoro@gmail.com')
+            ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
     } catch (\Exception $e) {
         dd($e);
     }
