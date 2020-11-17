@@ -41,8 +41,12 @@ Route::group([
 Route::get('ajax/products', 'ProductController@ajaxProducts');
 
 Route::get('send-email', function () {
-    \Mail::to('andrewrbrunoro@gmail.com')
+    try {
+        \Mail::to('andrewrbrunoro@gmail.com')
         ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
+    } catch (\Exception $e) {
+        dd($e);
+    }
 });
 
 Route::get('run-artisan', function() {
