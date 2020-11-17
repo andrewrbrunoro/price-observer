@@ -30,11 +30,21 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
-        $schedule->command('products:read')
-            ->everyMinute();
+        $QUEUE_TIME = env('QUEUE_TIME', 10);
 
-        $schedule->command('user-watch-products')
-            ->everyMinute();
+        if ($QUEUE_TIME == 10) {
+            $schedule->command('products:read')
+                ->everyTenMinutes();
+
+            $schedule->command('user-watch-products')
+                ->everyTenMinutes();
+        } else {
+            $schedule->command('products:read')
+                ->everyMinute();
+
+            $schedule->command('user-watch-products')
+                ->everyMinute();
+        }
     }
 
     /**
