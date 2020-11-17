@@ -29,6 +29,11 @@ Route::group([
     $auth->get('/', 'HomeController@index')
         ->name('home');
 
+    $auth->get('test-send-email', function () {
+        \Mail::to(auth()->user()->email)
+            ->send(new \App\Mail\ProductAlertMail(\App\Product::find(1)));
+    });
+
     $auth->post('produto/criar', 'ProductController@store')
         ->name('product.store');
 
